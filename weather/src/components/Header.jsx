@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Header = ({ searchInfo, setSearchInfo }) => {
+const Header = () => {
   const [dayOrWeek, setDayOrWeek] = useState("day");
   const [searchWord, setSearchWord] = useState("");
 
+  const navigate = useNavigate();
   const location = useLocation();
 
   // 오늘, 주간 onChange 함수
@@ -13,12 +14,10 @@ const Header = ({ searchInfo, setSearchInfo }) => {
     const { value } = e.currentTarget;
     setDayOrWeek(value);
 
-    // 현재 day or week 페이지면 검색 조건 바로 업데이트
+    // 현재 day or week 페이지면 바로 재검색
     if (location.pathname !== "/") {
-      setSearchInfo({
-        ...searchInfo,
-        dayOrWeek: value,
-      });
+      console.log("here");
+      navigate(`/${value}/${searchWord}`);
     }
   };
 
@@ -26,14 +25,6 @@ const Header = ({ searchInfo, setSearchInfo }) => {
   const handleSearch = (e) => {
     const { value } = e.currentTarget;
     setSearchWord(value);
-  };
-
-  // 검색 버튼 클릭 함수
-  const handleOnClick = () => {
-    setSearchInfo({
-      dayOrWeek,
-      searchWord,
-    });
   };
 
   return (
@@ -53,7 +44,10 @@ const Header = ({ searchInfo, setSearchInfo }) => {
           value={searchWord}
           onChange={handleSearch}
         />
-        <St.SearchButton type="button" onClick={handleOnClick}>
+        <St.SearchButton
+          type="button"
+          onClick={() => navigate(`/${dayOrWeek}/${searchWord}`)}
+        >
           검색
         </St.SearchButton>
       </St.SearchContainer>
