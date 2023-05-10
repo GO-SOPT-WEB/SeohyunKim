@@ -12,14 +12,14 @@ const fonts = {
   Title: css`
     font-family: "omyu_pretty";
     font-style: normal;
-    font-weight: 700;
-    font-size: 4rem;
+    font-weight: 500;
+    font-size: 5rem;
   `,
   Sub_Title: css`
     font-family: "omyu_pretty";
     font-style: normal;
-    font-weight: 600;
-    font-size: 3rem;
+    font-weight: 400;
+    font-size: 2.5rem;
   `,
   Main: css`
     font-family: "omyu_pretty";
