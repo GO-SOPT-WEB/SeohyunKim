@@ -10,14 +10,21 @@ const WeatherCard = ({ data }) => {
     clouds: { all },
   } = data;
 
-  const { imgURL } = WEATER_TYPE.find(
+  const WeatherImg = WEATER_TYPE.find(
     (item) => item.description === description
   );
 
   return (
     <St.Card>
       <header>05-12</header>
-      <img src={imgURL} alt={description} />
+      <img
+        src={
+          WeatherImg
+            ? WeatherImg.imgURL
+            : "https://i.pinimg.com/564x/fc/7e/ce/fc7ece8e8ee1f5db97577a4622f33975.jpg"
+        }
+        alt={description}
+      />
       <St.WeatherInfoContainer>
         <p>온도</p>
         <p>{temp}</p>
@@ -61,6 +68,8 @@ const St = {
       ${({ theme }) => theme.fonts.Sub_Title};
     }
     & > img {
+      text-align: center;
+
       width: 17rem;
       height: 17rem;
 
@@ -68,6 +77,8 @@ const St = {
       border-radius: 0.5rem;
 
       margin: 1rem 0;
+
+      ${({ theme }) => theme.fonts.Main};
     }
   `,
   WeatherInfoContainer: styled.div`
