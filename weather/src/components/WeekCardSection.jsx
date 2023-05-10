@@ -33,12 +33,15 @@ const WeekCardSection = () => {
     getWeatherInfo();
   }, [area]);
 
+  // 각 날짜별로 21시에 해당하는 정보만 필터링
   const renderData = weatherData?.filter((data) => {
     const dateTime = data.dt_txt.split(" ");
     if (dateTime[1] === "21:00:00") {
       return true;
     }
   });
+
+  // 날씨 카드 렌더링
   const WeatherCardList = renderData?.map((data) => {
     return <WeatherCard key={data.dt_txt} data={data} />;
   });
