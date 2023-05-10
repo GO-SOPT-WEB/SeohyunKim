@@ -8,6 +8,7 @@ const WeatherCard = ({ data }) => {
     weather: [{ description }],
     main: { temp, feels_like, temp_min, temp_max },
     clouds: { all },
+    dt_txt,
   } = data;
 
   const WeatherImg = WEATER_TYPE.find(
@@ -16,7 +17,7 @@ const WeatherCard = ({ data }) => {
 
   return (
     <St.Card>
-      <header>05-12</header>
+      {dt_txt && <header>{dt_txt.split(" ")[0]}</header>}
       <img
         src={
           WeatherImg
