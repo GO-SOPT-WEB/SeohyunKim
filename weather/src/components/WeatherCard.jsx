@@ -1,27 +1,40 @@
 import styled from "styled-components";
 import { WEATER_TYPE } from "../constants/weather";
 
-const WeatherCard = () => {
-  const { imgURL, description } = WEATER_TYPE;
+const WeatherCard = ({ data }) => {
+  if (!data) return;
+
+  const {
+    weather: [{ description }],
+    main: { temp, feels_like, temp_min, temp_max },
+    clouds: { all },
+  } = data;
+
+  const { imgURL } = WEATER_TYPE.find(
+    (item) => item.description === description
+  );
+
   return (
     <St.Card>
       <header>05-12</header>
       <img src={imgURL} alt={description} />
       <St.WeatherInfoContainer>
         <p>온도</p>
-        <p>15.37</p>
+        <p>{temp}</p>
       </St.WeatherInfoContainer>
       <St.WeatherInfoContainer>
         <p>체감 온도</p>
-        <p>15.37</p>
+        <p>{feels_like}</p>
       </St.WeatherInfoContainer>
       <St.WeatherInfoContainer>
         <p>최저/최고</p>
-        <p>15.37</p>
+        <p>
+          {temp_min}/{temp_max}
+        </p>
       </St.WeatherInfoContainer>
       <St.WeatherInfoContainer>
         <p>구름</p>
-        <p>15.37</p>
+        <p>{all}%</p>
       </St.WeatherInfoContainer>
     </St.Card>
   );

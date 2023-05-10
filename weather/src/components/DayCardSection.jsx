@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const DayCardSection = () => {
   const { area } = useParams();
@@ -11,23 +12,28 @@ const DayCardSection = () => {
     import.meta.env.VITE_APP_WEATHER
   }&units=metric`;
 
+  const [weatherData, setWeatherData] = useState(null);
+
   const getWeatherInfo = async () => {
     axios
       .get(WEATHER_URL)
       .then((res) => {
-        console.log(res);
-        return res;
+        const { data } = res;
+        setWeatherData(data);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const { data } = getWeatherInfo();
+  // area 바뀌면 검색
+  useEffect(() => {
+    getWeatherInfo();
+  }, [area]);
 
   return (
     <St.CardContainer>
-      <WeatherCard data={data} />
+      <WeatherCard data={weatherData} />
     </St.CardContainer>
   );
 };
