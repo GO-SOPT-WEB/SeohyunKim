@@ -1,16 +1,61 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ searchInfo, setSearchInfo }) => {
+  const [dayOrWeek, setDayOrWeek] = useState("day");
+  const [searchWord, setSearchWord] = useState("");
+
+  const location = useLocation();
+
+  // 오늘, 주간 onChange 함수
+  const handleDayOrWeek = (e) => {
+    const { value } = e.currentTarget;
+    setDayOrWeek(value);
+
+    // 현재 day or week 페이지면 검색 조건 바로 업데이트
+    if (location.pathname !== "/") {
+      setSearchInfo({
+        ...searchInfo,
+        dayOrWeek: value,
+      });
+    }
+  };
+
+  // 검색바 onChange 함수
+  const handleSearch = (e) => {
+    const { value } = e.currentTarget;
+    setSearchWord(value);
+  };
+
+  // 검색 버튼 클릭 함수
+  const handleOnClick = () => {
+    setSearchInfo({
+      dayOrWeek,
+      searchWord,
+    });
+  };
+
   return (
     <header>
       <St.Title>🌡서현이의 날씨 예보🌡</St.Title>
       <St.SearchContainer>
-        <St.SelectDayOrWeek>
-          <option className="day">오늘</option>
-          <option className="week">주간</option>
+        <St.SelectDayOrWeek onChange={handleDayOrWeek}>
+          <option className="day" value="day">
+            오늘
+          </option>
+          <option className="week" value="week">
+            주간
+          </option>
         </St.SelectDayOrWeek>
-        <St.SearchBar placeholder="영어로 도시명 ex)seoul" />
-        <St.SearchButton type="button">검색</St.SearchButton>
+        <St.SearchBar
+          placeholder="영어로 도시명 ex)seoul"
+          value={searchWord}
+          onChange={handleSearch}
+        />
+        <St.SearchButton type="button" onClick={handleOnClick}>
+          검색
+        </St.SearchButton>
       </St.SearchContainer>
     </header>
   );
