@@ -6,7 +6,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={WeatherForecast}>
+        <Route path="/" element={<WeatherForecast />}>
           <Route path="day/:area" />
           <Route ptah="week/:area" />
         </Route>
