@@ -16,7 +16,7 @@ const WeatherCard = ({ data }) => {
   );
 
   return (
-    <St.Card>
+    <St.CardContainer>
       {dt_txt && <header>{dt_txt.split(" ")[0]}</header>}
       <img
         src={
@@ -27,31 +27,33 @@ const WeatherCard = ({ data }) => {
         alt={description}
       />
       <St.WeatherInfoContainer>
-        <p>온도</p>
-        <p>{temp}</p>
+        <St.WeatherInfo>
+          <p>온도</p>
+          <p>{temp}</p>
+        </St.WeatherInfo>
+        <St.WeatherInfo>
+          <p>체감 온도</p>
+          <p>{feels_like}</p>
+        </St.WeatherInfo>
+        <St.WeatherInfo>
+          <p>최저/최고</p>
+          <p>
+            {temp_min}/{temp_max}
+          </p>
+        </St.WeatherInfo>
+        <St.WeatherInfo>
+          <p>구름</p>
+          <p>{all}%</p>
+        </St.WeatherInfo>
       </St.WeatherInfoContainer>
-      <St.WeatherInfoContainer>
-        <p>체감 온도</p>
-        <p>{feels_like}</p>
-      </St.WeatherInfoContainer>
-      <St.WeatherInfoContainer>
-        <p>최저/최고</p>
-        <p>
-          {temp_min}/{temp_max}
-        </p>
-      </St.WeatherInfoContainer>
-      <St.WeatherInfoContainer>
-        <p>구름</p>
-        <p>{all}%</p>
-      </St.WeatherInfoContainer>
-    </St.Card>
+    </St.CardContainer>
   );
 };
 
 export default WeatherCard;
 
 const St = {
-  Card: styled.article`
+  CardContainer: styled.article`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -84,11 +86,18 @@ const St = {
   `,
   WeatherInfoContainer: styled.div`
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 15rem;
+
+    margin-top: 0.3rem;
+  `,
+  WeatherInfo: styled.div`
+    display: flex;
     justify-content: space-between;
 
     width: 16rem;
-
-    margin: 0.7rem 0;
 
     & > p {
       ${({ theme }) => theme.fonts.Main};
