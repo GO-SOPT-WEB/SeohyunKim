@@ -1,40 +1,28 @@
 import WeatherCard from "./WeatherCard";
 import styled from "styled-components";
 
-import axios from "axios";
-
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import SkeletonCard from "./SkeletonCard";
+import useGetWeatherInfo from "../hooks/useGetWeatherInfo";
 
 const DayCardSection = () => {
   const { area } = useParams();
-  const WEATHER_URL = `https://api.openweathermap.org/data/2.5/weather?q=${area}&appid=${
-    import.meta.env.VITE_APP_WEATHER
-  }&units=metric`;
 
   const navigate = useNavigate();
-  const [weatherData, setWeatherData] = useState(null);
 
-  const getWeatherInfo = async () => {
-    axios
-      .get(WEATHER_URL)
-      .then((res) => {
-        const { data } = res;
-        setWeatherData(data);
-      })
-      .catch(() => {
-        navigate(`/error`);
-      });
-  };
+  const {
+    isLoading,
+    data: weatherData,
+    isError,
+  } = useGetWeatherInfo("day", area);
 
-  // area 바뀌면 검색
-  useEffect(() => {
-    getWeatherInfo();
-  }, [area]);
+  if (isError) {
+    navigate(`/error`);
+  }
 
   return (
     <St.CardContainer>
-      <WeatherCard data={weatherData} />
+      {isLoading ? <SkeletonCard /> : <WeatherCard data={weatherData} />}
     </St.CardContainer>
   );
 };
