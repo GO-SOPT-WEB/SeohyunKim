@@ -1,10 +1,8 @@
-import { useEffect } from "react";
-import { useFetcher, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const SkeletonCard = () => {
   const location = useLocation();
-  console.log(location);
   return (
     <St.CardContainer>
       {location.pathname.startsWith("/week/") && (
