@@ -16,7 +16,6 @@ const Header = () => {
 
     // 현재 day or week 페이지면 바로 재검색
     if (location.pathname !== "/") {
-      console.log("here");
       navigate(`/${value}/${searchWord}`);
     }
   };
