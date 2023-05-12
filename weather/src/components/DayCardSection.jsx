@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import axios from "axios";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const DayCardSection = () => {
@@ -12,6 +12,7 @@ const DayCardSection = () => {
     import.meta.env.VITE_APP_WEATHER
   }&units=metric`;
 
+  const navigate = useNavigate();
   const [weatherData, setWeatherData] = useState(null);
 
   const getWeatherInfo = async () => {
@@ -21,8 +22,8 @@ const DayCardSection = () => {
         const { data } = res;
         setWeatherData(data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        navigate(`/error`);
       });
   };
 

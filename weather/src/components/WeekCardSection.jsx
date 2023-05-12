@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import axios from "axios";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const WeekCardSection = () => {
@@ -12,6 +12,7 @@ const WeekCardSection = () => {
     import.meta.env.VITE_APP_WEATHER
   }&units=metric`;
 
+  const navigate = useNavigate();
   const [weatherData, setWeatherData] = useState(null);
 
   const getWeatherInfo = async () => {
@@ -23,8 +24,8 @@ const WeekCardSection = () => {
         } = res;
         setWeatherData(list);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((e) => {
+        navigate(`/error`);
       });
   };
 
