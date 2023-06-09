@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import OMPANGI_DATA from "../data/OMPANGI_DATA";
 import ModalPortal from "../components/modal/ModalPortal";
 import SuccessModal from "../components/modal/SuccessModal";
+import { cardData } from "../types/card";
 
 const EASY = "EASY";
 const NORMAL = "NORMAL";
@@ -20,7 +21,7 @@ const FindOmpangi = () => {
   const levelButtonList = [EASY, NORMAL, HARD].map((item) => (
     <St.LevelButton
       key={item}
-      className={level === item && "selected"}
+      className={level === item ? "selected" : ""}
       onClick={() => setLevel(item)}
     >
       {item}
@@ -29,7 +30,7 @@ const FindOmpangi = () => {
 
   // 배열 셔플 함수
   const shuffling = () => {
-    const shuffle = (array) => {
+    const shuffle = (array: cardData[]) => {
       let newArray = array.sort(() => Math.random() - 0.5);
       return newArray;
     };

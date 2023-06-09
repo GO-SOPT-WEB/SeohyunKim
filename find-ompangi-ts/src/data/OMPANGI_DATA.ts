@@ -1,4 +1,6 @@
-const OMPANGI_DATA = [
+import { cardData } from "../types/card";
+
+const OMPANGI_DATA: cardData[] = [
   {
     id: 1,
     alt: "사랑에 빠진 옴팡이",
