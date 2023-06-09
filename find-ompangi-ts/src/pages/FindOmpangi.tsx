@@ -7,7 +7,7 @@ import ModalPortal from "../components/modal/ModalPortal";
 import SuccessModal from "../components/modal/SuccessModal";
 import { cardData } from "../types/card";
 import { levelState, modalState } from "../states/card";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 const EASY = "EASY";
 const NORMAL = "NORMAL";
@@ -15,7 +15,7 @@ const HARD = "HARD";
 
 const FindOmpangi = () => {
   const [reset, setReset] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useRecoilState(modalState);
+  const isModalOpen = useRecoilValue(modalState);
   const [level, setLevel] = useRecoilState(levelState);
 
   // 난이도 버튼 렌더링
