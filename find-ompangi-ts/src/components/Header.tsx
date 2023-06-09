@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { scoreState } from "../states/card";
 
-const Header = ({ level, score, setIsModalOpen }) => {
+const Header = ({ level, setIsModalOpen }) => {
   const cardCount = level === "EASY" ? 5 : level === "NORMAL" ? 7 : 9;
   const [isBlink, setIsBlink] = useState(false);
+
+  const score = useRecoilValue(scoreState);
 
   useEffect(() => {
     // 최초 렌더링 early return

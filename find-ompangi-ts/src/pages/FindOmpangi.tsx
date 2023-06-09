@@ -13,7 +13,6 @@ const HARD = "HARD";
 
 const FindOmpangi = () => {
   const [level, setLevel] = useState(EASY);
-  const [score, setScore] = useState(0);
   const [reset, setReset] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -51,15 +50,9 @@ const FindOmpangi = () => {
 
   return (
     <St.Main>
-      <Header level={level} score={score} setIsModalOpen={setIsModalOpen} />
+      <Header level={level} setIsModalOpen={setIsModalOpen} />
       <St.LevelContainer>{levelButtonList}</St.LevelContainer>
-      <CardSection
-        score={score}
-        setScore={setScore}
-        level={level}
-        renderData={renderData}
-        reset={reset}
-      />
+      <CardSection level={level} renderData={renderData} reset={reset} />
       <St.ResetButton type="button" onClick={() => setReset(!reset)}>
         RESET
       </St.ResetButton>
