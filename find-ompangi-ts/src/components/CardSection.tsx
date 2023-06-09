@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
+import { cardData } from "../types/card";
 
-const testCardList = [];
+const testCardList: string[] = [];
 
 const CardSection = ({ level, setScore, renderData, score, reset }) => {
-  const [openCardList, setOpenCardList] = useState([]); // 열려있는 카드 리스트
+  const [openCardList, setOpenCardList] = useState<number[]>([]); // 열려있는 카드 리스트
   const [isClickAbled, setIsClickAbled] = useState(true); // 카드 클릭 가능 여부
   const [isRotate, setIsRotate] = useState("");
 
@@ -42,7 +43,9 @@ const CardSection = ({ level, setScore, renderData, score, reset }) => {
   };
 
   // 카드 클릭 핸들링 함수
-  const handleCardClick = (e) => {
+  const handleCardClick = (e: MouseEvent<HTMLElement>) => {
+    if (!isClickAbled) return;
+
     const { id, classList } = e.currentTarget;
     classList.add("rotate"); // 회전 애니메이션
 
@@ -59,14 +62,16 @@ const CardSection = ({ level, setScore, renderData, score, reset }) => {
   };
 
   // 카드 렌더링
-  const cardList = renderData.map((item, idx) => {
+  const cardList = renderData.map((item: cardData, idx: number) => {
     const { id: cardId, imgSrc, alt } = item;
     // openCardList에 인덱스 있는지 검사해서 조건분기 렌더링
     return openCardList.includes(idx) ? (
       <St.CardFront
         key={`${cardId}_${idx}_front`}
         className={
-          openCardList.indexOf(idx) >= openCardList.length - 2 && `${isRotate}`
+          openCardList.indexOf(idx) >= openCardList.length - 2
+            ? `${isRotate}`
+            : ""
         }
       >
         <img src={imgSrc} alt={alt} />
@@ -74,9 +79,9 @@ const CardSection = ({ level, setScore, renderData, score, reset }) => {
     ) : (
       <St.CardBack
         key={`${cardId}_${idx}_back`}
-        id={idx}
-        className={cardId}
-        onClick={isClickAbled ? handleCardClick : null}
+        id={String(idx)}
+        className={String(cardId)}
+        onClick={handleCardClick}
       >
         🌼
       </St.CardBack>
