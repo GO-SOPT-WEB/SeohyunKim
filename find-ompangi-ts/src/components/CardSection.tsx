@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import { MouseEvent, useEffect, useState } from "react";
 import { cardData } from "../types/card";
-import { useRecoilState } from "recoil";
-import { scoreState } from "../states/card";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { levelState, scoreState } from "../states/card";
 
 const testCardList: string[] = [];
 
-const CardSection = ({ level, renderData, reset }) => {
+const CardSection = ({ renderData, reset }) => {
   const [openCardList, setOpenCardList] = useState<number[]>([]); // 열려있는 카드 리스트
   const [isClickAbled, setIsClickAbled] = useState(true); // 카드 클릭 가능 여부
   const [isRotate, setIsRotate] = useState("");
   const [score, setScore] = useRecoilState(scoreState);
+  const level = useRecoilValue(levelState);
 
   // level이 바뀌면, reset 버튼 눌리면 모두 초기화
   useEffect(() => {
