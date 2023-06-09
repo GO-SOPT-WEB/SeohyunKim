@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
-import { levelState, scoreState } from "../states/card";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { levelState, modalState, scoreState } from "../states/card";
 
-const Header = ({ setIsModalOpen }) => {
+const Header = () => {
   const score = useRecoilValue(scoreState);
   const level = useRecoilValue(levelState);
   const [isBlink, setIsBlink] = useState(false);
+  const setIsModalOpen = useSetRecoilState(modalState);
 
   const cardCount = level === "EASY" ? 5 : level === "NORMAL" ? 7 : 9;
 

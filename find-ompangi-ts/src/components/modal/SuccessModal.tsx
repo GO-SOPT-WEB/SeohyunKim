@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import { modalState } from "../../states/card";
+import { useSetRecoilState } from "recoil";
 
-const SuccessModal = ({ setIsModalOpen }) => {
+const SuccessModal = () => {
+  const setIsModalOpen = useSetRecoilState(modalState);
   const handleOnClick = () => {
     setIsModalOpen(false);
   };

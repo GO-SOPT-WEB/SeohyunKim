@@ -9,3 +9,8 @@ export const levelState = atom<string>({
   key: "levelState",
   default: "EASY",
 });
+
+export const modalState = atom<boolean>({
+  key: "modalState",
+  default: false,
+});

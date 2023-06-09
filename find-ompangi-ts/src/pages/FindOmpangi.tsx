@@ -6,7 +6,7 @@ import OMPANGI_DATA from "../data/OMPANGI_DATA";
 import ModalPortal from "../components/modal/ModalPortal";
 import SuccessModal from "../components/modal/SuccessModal";
 import { cardData } from "../types/card";
-import { levelState } from "../states/card";
+import { levelState, modalState } from "../states/card";
 import { useRecoilState } from "recoil";
 
 const EASY = "EASY";
@@ -15,8 +15,9 @@ const HARD = "HARD";
 
 const FindOmpangi = () => {
   const [reset, setReset] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(modalState);
   const [level, setLevel] = useRecoilState(levelState);
+
   // 난이도 버튼 렌더링
   const levelButtonList = [EASY, NORMAL, HARD].map((item) => (
     <St.LevelButton
@@ -51,7 +52,7 @@ const FindOmpangi = () => {
 
   return (
     <St.Main>
-      <Header setIsModalOpen={setIsModalOpen} />
+      <Header />
       <St.LevelContainer>{levelButtonList}</St.LevelContainer>
       <CardSection renderData={renderData} reset={reset} />
       <St.ResetButton type="button" onClick={() => setReset(!reset)}>
@@ -59,7 +60,7 @@ const FindOmpangi = () => {
       </St.ResetButton>
       {isModalOpen && (
         <ModalPortal>
-          <SuccessModal setIsModalOpen={setIsModalOpen} />
+          <SuccessModal />
         </ModalPortal>
       )}
     </St.Main>

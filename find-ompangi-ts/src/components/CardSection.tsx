@@ -6,7 +6,12 @@ import { levelState, scoreState } from "../states/card";
 
 const testCardList: string[] = [];
 
-const CardSection = ({ renderData, reset }) => {
+interface CardSectionProps {
+  renderData: cardData[];
+  reset: boolean;
+}
+
+const CardSection = ({ renderData, reset }: CardSectionProps) => {
   const [openCardList, setOpenCardList] = useState<number[]>([]); // 열려있는 카드 리스트
   const [isClickAbled, setIsClickAbled] = useState(true); // 카드 클릭 가능 여부
   const [isRotate, setIsRotate] = useState("");
